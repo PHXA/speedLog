@@ -11,8 +11,15 @@ while 1:
   s=time.time()
   a=subprocess.run("speedtest", capture_output=True, text=True).stdout
   if not "ERROR" in a:
-    a=a.split()
+    a=a.split("\n")
+    Download="none"
+    Upload="none"
+    for i in a:
+      if "Download:" in i:
+        Download = i.split(" ")[1]
+      if "Upload:" in i:
+        Upload = i.split(" ")[1]
     with open(f_p,"a") as f:
-      f.write(f"{datetime.datetime.now()}\t{a[29]}\t{a[35]}\n")
+      f.write(f"{datetime.datetime.now()}\t{Download}\t{Upload}\n")
   e=time.time()
   time.sleep(max(DURATION_SEC-(e-s),0))
