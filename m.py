@@ -1,11 +1,18 @@
 import subprocess
 import time, datetime
+import glob
 
 DURATION_SEC=10*60
 
-f_p = "/result/speed.tsv"
-with open(f_p,"w") as f:
-  f.write("time\tdownload[Mbit/s]\tupload[Mbit/s]\n")
+past_tsv = [int(i.split("/")[-1].split(".")[0].split(":")[1]) for i in glob.glob("/result/*")]
+if past_tsv:
+  m=max(past_tsv)
+  f_p=f"/result/speed:{m+1}.tsv"
+  subprocess.call(["cp",f"/result/speed:{m}.tsv",f_p])
+else:
+  f_p = "/result/speed:0.tsv"
+  with open(f_p,"w") as f:
+    f.write("time\tdownload[Mbit/s]\tupload[Mbit/s]\n")
 
 while 1:
   s=time.time()
