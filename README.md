@@ -23,9 +23,12 @@ docker-compose up --build -d
 
 # 備考
 
-ログは新しく作られた./resultフォルダの中にspeed.tsvファイルとして書き出されます。
+ログは新しく作られた./resultフォルダの中にspeed:{tag}.tsvファイルとして書き出されます。
 
-ファイルの中身は次の列を持つtsvファイルとなります。なお時間は、datetime.datetime.now()にてUTC形式で記録されます。
+tagは0から始まる整数をとります。最大のtagを持つ既存のファイルがある場合はに1が加算されたtagが付与されて複製されます。そしてそれに対して追記されます。
+
+ファイルの中身は次の列を持つtsvファイルとなります。
+時間はdatetime.datetime.now()にてUTC形式で記録されます。
 
 ```
 time download[Mbit/s] upload[Mbit/s]
