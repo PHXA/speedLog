@@ -24,9 +24,10 @@ with open(f_p,"r") as f:
     d,dow,up = i.split("\t")
     d = datetime.datetime.strptime(d, '%Y-%m-%d %H:%M:%S.%f')
     j_d=d+datetime.timedelta(hours=9) # to jst
-    date.append(j_d)
-    download.append(float(dow))
-    upload.append(float(up))
+    if (not dow=="none") and (not up == "none"):
+      date.append(j_d)
+      download.append(float(dow))
+      upload.append(float(up))
 
 def smooth(i):
   a=[]
